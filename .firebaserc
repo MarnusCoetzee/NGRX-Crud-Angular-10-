@@ -1,0 +1,11 @@
+{
+  "targets": {
+    "udemy-course-11804": {
+      "hosting": {
+        "course-app": [
+          "udemy-course-11804"
+        ]
+      }
+    }
+  }
+}
