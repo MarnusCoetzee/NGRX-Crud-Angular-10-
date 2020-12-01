@@ -11,7 +11,7 @@ import { AngularFireAuthModule } from '@angular/fire/auth';
 import { AngularFireStorageModule } from '@angular/fire/storage';
 import { HeaderComponent } from './components/header/header.component';
 
-import { environment } from '../environments/environment.prod';
+import { environment } from '../environments/environment';
 // store
 // Store
 
