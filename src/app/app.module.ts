@@ -13,6 +13,8 @@ import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { AngularFireAuthModule } from '@angular/fire/auth';
 import { AngularFireStorageModule } from '@angular/fire/storage';
 import { HeaderComponent } from './components/header/header.component';
+// services
+import { NotificationModule } from './services/notification/notification.module';
 // Date
 import {
   MatNativeDateModule,
@@ -50,6 +52,7 @@ const APP_DATE_FORMATS: MatDateFormats = {
     AngularFireAuthModule,
     AngularFireStorageModule,
     MatNativeDateModule,
+    NotificationModule.forRoot(),
   ],
   providers: [
     { provide: MAT_DATE_LOCALE, useValue: 'en-GB' },
