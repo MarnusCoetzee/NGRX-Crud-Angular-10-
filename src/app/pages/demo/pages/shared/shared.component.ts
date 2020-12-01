@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ControlItem } from 'src/models/frontend';
 import { regex, regexErrors } from '../../../../shared/utils/regex';
+import { markFormGroupTouched } from '../../../../shared/utils/form';
 @Component({
   selector: 'app-shared',
   templateUrl: './shared.component.html',
@@ -95,9 +96,9 @@ export class SharedComponent implements OnInit {
   onSubmit(): void {
     console.log('Submit!');
 
-    // if (!this.form.valid) {
-    //   markFormGroupTouched(this.form);
-    // }
+    if (!this.form.valid) {
+      markFormGroupTouched(this.form);
+    }
   }
 
   onPatchValue(): void {
