@@ -8,6 +8,7 @@ import { InputModule } from '../../../../shared/controls/input/input.module';
 import { ReactiveFormsModule } from '@angular/forms';
 import { ControlsModule } from '../../../../shared/controls/controls.module';
 import { IndicatorsModule } from '../../../../shared/indicators/indicators.module';
+import { PopupsModule } from '../../../../shared/popups/popups.module';
 @NgModule({
   declarations: [SharedComponent],
   imports: [
@@ -18,6 +19,7 @@ import { IndicatorsModule } from '../../../../shared/indicators/indicators.modul
     ReactiveFormsModule,
     ControlsModule,
     IndicatorsModule,
+    PopupsModule,
   ],
 })
 export class SharedModule {}
