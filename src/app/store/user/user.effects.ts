@@ -24,7 +24,7 @@ import * as fromActions from './user.actions';
 import { NotificationService } from '../../services/';
 
 type Action = fromActions.All;
-
+@Injectable()
 export class UserEffects {
   constructor(
     private actions: Actions,
