@@ -13,7 +13,7 @@ import {
 } from '../../../../shared/controls';
 import { FilesUploadModule } from '../../../../shared/popups/files-upload/files-upload.module';
 import { SpinnerModule } from '../../../../shared/indicators';
-// import { UserPhotoModule } from '../../../../shared/';
+import { UserPhotoModule } from '../../../../shared/layout/user-photo/user-photo.module';
 import { ButtonModule } from '../../../../shared/buttons';
 
 import { FormRoutingModule } from './form-routing.module';
@@ -24,9 +24,11 @@ import { PersonalComponent } from './components/personal/personal.component';
 import { ProfessionalComponent } from './components/professional/professional.component';
 
 import { MapperService } from './services/mapper/mapper.service';
-
+import { EmployeeComponent } from './components/professional/roles/employee/employee.component';
+import { RecruiterComponent } from './components/professional/roles/recruiter/recruiter.component';
+import { ExperiencesComponent } from './components/professional/roles/employee/experiences/experiences.component';
 @NgModule({
-  declarations: [FormComponent, PersonalComponent, ProfessionalComponent],
+  declarations: [FormComponent, PersonalComponent, ProfessionalComponent, EmployeeComponent, RecruiterComponent, ExperiencesComponent],
   imports: [
     CommonModule,
     FormRoutingModule,
@@ -40,7 +42,7 @@ import { MapperService } from './services/mapper/mapper.service';
     DateRangeModule,
     FilesUploadModule,
     SpinnerModule,
-    // UserPhotoModule,
+    UserPhotoModule,
     ButtonModule,
     StepperModule,
   ],

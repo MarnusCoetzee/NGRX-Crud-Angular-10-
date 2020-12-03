@@ -12,20 +12,70 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
+
+import { regex, regexErrors } from '../../../../../../shared/utils';
+import { markFormGroupTouched } from '../../../../../../shared/utils/form';
+
+import { Dictionaries } from '../../../../../../store/dictionaries';
+
 import { StepperService } from '../stepper/services';
+import { RecruiterForm } from './roles/recruiter/recruiter.component';
+export interface ProfessionalForm {
+  about: string;
+  roleId: string;
+  role: RecruiterForm;
+}
 
 @Component({
   selector: 'app-professional',
   templateUrl: './professional.component.html',
   styleUrls: ['./professional.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ProfessionalComponent implements OnInit, OnDestroy {
+  @Input() value: ProfessionalForm;
+  @Input() dictionaries: Dictionaries;
+
+  @Output() changed = new EventEmitter<ProfessionalForm>();
+
+  form: FormGroup;
+  regexErrors = regexErrors;
+
   private destroy = new Subject<any>();
-  constructor(private stepper: StepperService) {}
+  constructor(
+    private stepper: StepperService,
+    private fb: FormBuilder,
+    private cdr: ChangeDetectorRef
+  ) {}
 
   ngOnInit(): void {
+    this.form = this.fb.group({
+      roleId: [
+        null,
+        {
+          updateOn: 'change',
+          validators: [Validators.required],
+        },
+      ],
+      about: [
+        null,
+        {
+          updateOn: 'change',
+          validators: [Validators.required],
+        },
+      ],
+    });
+
     this.stepper.check$.pipe(takeUntil(this.destroy)).subscribe((type) => {
-      this.stepper[type].next(true);
+      if (!this.form.valid) {
+        markFormGroupTouched(this.form);
+        this.form.updateValueAndValidity();
+        this.cdr.detectChanges();
+      } else {
+        this.changed.emit(this.form.value);
+      }
+
+      this.stepper[type].next(this.form.valid);
     });
   }
 

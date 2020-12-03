@@ -1,4 +1,9 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  OnDestroy,
+  OnInit,
+} from '@angular/core';
 import { Subject, Observable, zip } from 'rxjs';
 import { takeUntil, switchMap } from 'rxjs/operators';
 import { StepperService } from './components/stepper/services/stepper.service';
@@ -7,10 +12,13 @@ import * as fromRoot from '../../../../store';
 import * as fromDictionaries from '../../../../store/dictionaries';
 import * as fromUser from '../../../../store/user';
 import { ActivatedRoute, Router } from '@angular/router';
+import { PersonalForm } from './components/personal/personal.component';
+import { ProfessionalForm } from './components/professional/professional.component';
 @Component({
   selector: 'app-form',
   templateUrl: './form.component.html',
   styleUrls: ['./form.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class FormComponent implements OnInit, OnDestroy {
   dictionaries$: Observable<fromDictionaries.Dictionaries>;
@@ -34,9 +42,16 @@ export class FormComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
+    this.dictionaries$ = this.store.pipe(
+      select(fromDictionaries.getDictionaries)
+    );
+    this.dictionariesIsReady$ = this.store.pipe(
+      select(fromDictionaries.getIsReady)
+    );
+
     this.stepper.init([
-      { key: 'personal', label: 'Personal' },
       { key: 'professional', label: 'Professional' },
+      { key: 'personal', label: 'Personal' },
     ]);
 
     this.stepper.complete$.pipe(takeUntil(this.destroy)).subscribe(() => {
@@ -51,5 +66,17 @@ export class FormComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this.destroy.next();
     this.destroy.complete();
+  }
+
+  get title(): string {
+    return this.isEditing ? 'Edit Profile' : 'New Profile';
+  }
+
+  onChangedPersonal(data: PersonalForm): void {
+    console.log('personal changed', data);
+  }
+
+  onChangedProfessional(data: ProfessionalForm): void {
+    console.log('professional changed', data);
   }
 }

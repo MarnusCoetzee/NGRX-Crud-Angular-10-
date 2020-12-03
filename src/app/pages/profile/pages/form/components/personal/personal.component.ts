@@ -25,13 +25,14 @@ export interface PersonalForm {
   photoURL: string;
   country: string;
 }
+
 @Component({
   selector: 'app-personal',
   templateUrl: './personal.component.html',
   styleUrls: ['./personal.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class PersonalComponent implements OnInit {
+export class PersonalComponent implements OnInit, OnDestroy {
   @Input() value: PersonalForm;
   @Input() dictionaries: Dictionaries;
 
@@ -83,7 +84,7 @@ export class PersonalComponent implements OnInit {
         this.changed.emit(this.form.value);
       }
 
-      this.stepper[type].next(true);
+      this.stepper[type].next(this.form.valid);
     });
   }
 

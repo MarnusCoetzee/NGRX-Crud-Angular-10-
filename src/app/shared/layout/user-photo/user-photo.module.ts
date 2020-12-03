@@ -1,10 +1,10 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { UserPhotoComponent } from './user-photo/user-photo.component';
+import { UserPhotoComponent } from './user-photo.component';
 
 @NgModule({
   declarations: [UserPhotoComponent],
   imports: [CommonModule],
   exports: [UserPhotoComponent],
 })
-export class LayoutModule {}
+export class UserPhotoModule {}
