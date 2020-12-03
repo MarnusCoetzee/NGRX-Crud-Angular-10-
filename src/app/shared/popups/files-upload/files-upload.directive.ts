@@ -35,6 +35,7 @@ export class FilesUploadDirective {
 
     dialogRef.afterClosed().subscribe((result) => {
       this.changed.emit(result || null);
+      console.log(result);
     });
   }
 }

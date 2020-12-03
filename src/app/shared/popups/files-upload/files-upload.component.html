@@ -29,20 +29,25 @@
       <div class="error" *ngIf="isError">Choose only one file</div>
     </ng-container>
 
-    <ng-container *ngIf="imageFile">
-      <app-cropper
-        [imageFile]="imageFile"
-        (changed)="onCrop($event)"
-      ></app-cropper>
-    </ng-container>
+    <div class="image-finished">
+      <ng-container *ngIf="imageFile">
+        <app-cropper
+          [imageFile]="imageFile"
+          (changed)="onCrop($event)"
+        ></app-cropper>
+      </ng-container>
+    </div>
 
-    <ng-container *ngIf="files">
-      <app-upload
-        *ngFor="let file of files"
-        [file]="file"
-        (completed)="onUploadComplete($event)"
-      ></app-upload>
-    </ng-container>
+    <div class="image-finished">
+      <ng-container *ngIf="files">
+        <app-upload
+          *ngFor="let file of files"
+          [file]="file"
+          (completed)="onUploadComplete($event)"
+        >
+        </app-upload>
+      </ng-container>
+    </div>
   </div>
 
   <div class="files-upload__footer" *ngIf="!imageFile">
