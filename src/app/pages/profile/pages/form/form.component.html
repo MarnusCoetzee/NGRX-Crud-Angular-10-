@@ -1,7 +1,17 @@
 <div class="app-page">
   <div class="app-page__header">
-    <h1>New Profile</h1>
+    <h1>title</h1>
   </div>
 
-  <div class="app-page__content"></div>
+  <div class="app-page__content">
+    <app-stepper>
+      <ng-container [ngSwitch]="stepper?.activeStep?.key">
+        <app-personal *ngSwitchCase="'personal'"></app-personal>
+
+        <app-professional *ngSwitchCase="'professional'"></app-professional>
+      </ng-container>
+    </app-stepper>
+  </div>
+
+  <!-- <app-spinner></app-spinner> -->
 </div>
