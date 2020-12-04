@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { NgModule, LOCALE_ID, DEFAULT_CURRENCY_CODE } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -12,7 +12,6 @@ import { AngularFireStorageModule } from '@angular/fire/storage';
 import { HeaderComponent } from './components/header/header.component';
 
 import { environment } from '../environments/environment';
-// store
 // Store
 
 import { StoreModule } from '@ngrx/store';
@@ -68,6 +67,8 @@ const APP_DATE_FORMATS: MatDateFormats = {
   providers: [
     { provide: MAT_DATE_LOCALE, useValue: 'en-GB' },
     { provide: MAT_DATE_FORMATS, useValue: APP_DATE_FORMATS },
+    { provide: LOCALE_ID, useValue: 'en_ZA' },
+    { provide: DEFAULT_CURRENCY_CODE, useValue: 'R' },
   ],
   bootstrap: [AppComponent],
 })

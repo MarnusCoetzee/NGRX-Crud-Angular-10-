@@ -10,16 +10,18 @@
           *ngSwitchCase="'personal'"
           [dictionaries]="dictionaries$ | async"
           (changed)="onChangedPersonal($event)"
+          [value]="personal$ | async"
         ></app-personal>
 
         <app-professional
           *ngSwitchCase="'professional'"
           [dictionaries]="dictionaries$ | async"
           (changed)="onChangedProfessional($event)"
+          [value]="professional$ | async"
         ></app-professional>
       </ng-container>
     </app-stepper>
   </div>
 
-  <!-- <app-spinner></app-spinner> -->
+  <app-spinner *ngIf="loading$ | async"></app-spinner>
 </div>

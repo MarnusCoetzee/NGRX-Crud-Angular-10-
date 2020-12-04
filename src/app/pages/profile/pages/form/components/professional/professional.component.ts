@@ -58,14 +58,12 @@ export class ProfessionalComponent implements OnInit, OnDestroy {
           validators: [Validators.required],
         },
       ],
-      about: [
-        null,
-        // {
-        //   updateOn: 'change',
-        //   validators: [Validators.required],
-        // },
-      ],
+      about: [null],
     });
+
+    if (this.value) {
+      this.form.patchValue(this.value);
+    }
 
     this.stepper.check$.pipe(takeUntil(this.destroy)).subscribe((type) => {
       if (!this.form.valid) {
