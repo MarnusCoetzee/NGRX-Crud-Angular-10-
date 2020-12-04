@@ -9,6 +9,7 @@ import { SafeStyle, DomSanitizer } from '@angular/platform-browser';
   selector: 'app-user-photo',
   templateUrl: './user-photo.component.html',
   styleUrls: ['./user-photo.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class UserPhotoComponent implements OnInit {
   @Input() photoURL: string;

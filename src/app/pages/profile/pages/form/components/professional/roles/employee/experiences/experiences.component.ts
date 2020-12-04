@@ -15,7 +15,7 @@ interface Period {
   templateUrl: './experiences.component.html',
   styleUrls: ['./experiences.component.scss'],
 })
-export class ExperiencesComponent implements OnInit {
+export class ExperiencesComponent implements OnInit, OnDestroy {
   @Input() public parent: FormGroup;
   @Input() public name: string;
 

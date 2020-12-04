@@ -19,11 +19,12 @@ import { markFormGroupTouched } from '../../../../../../shared/utils/form';
 import { Dictionaries } from '../../../../../../store/dictionaries';
 
 import { StepperService } from '../stepper/services';
+import { EmployeeForm } from './roles/employee/employee.component';
 import { RecruiterForm } from './roles/recruiter/recruiter.component';
 export interface ProfessionalForm {
   about: string;
   roleId: string;
-  role: RecruiterForm;
+  role: RecruiterForm | EmployeeForm;
 }
 
 @Component({
@@ -59,10 +60,10 @@ export class ProfessionalComponent implements OnInit, OnDestroy {
       ],
       about: [
         null,
-        {
-          updateOn: 'change',
-          validators: [Validators.required],
-        },
+        // {
+        //   updateOn: 'change',
+        //   validators: [Validators.required],
+        // },
       ],
     });
 
