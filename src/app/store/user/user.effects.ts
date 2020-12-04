@@ -22,6 +22,7 @@ import { User } from './user.models';
 import * as fromActions from './user.actions';
 
 import { NotificationService } from '../../services/';
+import * as firebase from 'firebase';
 
 type Action = fromActions.All;
 @Injectable()
@@ -131,6 +132,39 @@ export class UserEffects {
       from(this.afAuth.signOut()).pipe(
         map(() => new fromActions.SignOutSuccess()),
         catchError((err) => of(new fromActions.SignOutError(err.message)))
+      )
+    )
+  );
+
+  @Effect()
+  create: Observable<Action> = this.actions.pipe(
+    ofType(fromActions.Types.CREATE),
+    map((action: fromActions.Create) => action.user),
+    withLatestFrom(this.afAuth.authState.pipe(take(1))),
+    map(([user, state]) => ({
+      ...user,
+      uid: state.uid,
+      email: state.email,
+      created: firebase.default.firestore.FieldValue.serverTimestamp(),
+    })),
+    switchMap((user: User) =>
+      from(this.afs.collection('users').doc(user.uid).set(user)).pipe(
+        tap(() => this.router.navigate(['/profile', user.uid])),
+        map(() => new fromActions.CreateSuccess(user)),
+        catchError((err) => of(new fromActions.CreateError(err.message)))
+      )
+    )
+  );
+
+  @Effect()
+  update: Observable<Action> = this.actions.pipe(
+    ofType(fromActions.Types.UPDATE),
+    map((action: fromActions.Update) => action.user),
+    switchMap((user) =>
+      from(this.afs.collection('users').doc(user.uid).set(user)).pipe(
+        tap(() => this.router.navigate(['/profile', user.uid])),
+        map(() => new fromActions.UpdateSuccess(user)),
+        catchError((err) => of(new fromActions.UpdateError(err.message)))
       )
     )
   );

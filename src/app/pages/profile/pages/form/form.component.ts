@@ -14,6 +14,12 @@ import * as fromUser from '../../../../store/user';
 import { ActivatedRoute, Router } from '@angular/router';
 import { PersonalForm } from './components/personal/personal.component';
 import { ProfessionalForm } from './components/professional/professional.component';
+
+export interface ProfileForm {
+  personal: PersonalForm;
+  professional: ProfessionalForm;
+}
+
 @Component({
   selector: 'app-form',
   templateUrl: './form.component.html',
@@ -24,12 +30,12 @@ export class FormComponent implements OnInit, OnDestroy {
   dictionaries$: Observable<fromDictionaries.Dictionaries>;
   dictionariesIsReady$: Observable<boolean>;
 
-  // personal$: Observable<PersonalForm>;
-  // professional$: Observable<ProfessionalForm>;
+  personal$: Observable<PersonalForm>;
+  professional$: Observable<ProfessionalForm>;
 
   loading$: Observable<boolean>;
 
-  // private profile$: Observable<ProfileForm>;
+  private profile$: Observable<ProfileForm>;
   private user: fromUser.User;
 
   private isEditing: boolean;
@@ -42,6 +48,11 @@ export class FormComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
+    this.user = this.route.snapshot.data.user;
+    this.isEditing = !!this.user;
+    // this.profile$ = this.store.pipe(select(fromForm.getFormState));
+    // this.personal$ = this.store.pipe(select(fromForm.getPersonalForm));
+    // this.professional$ = this.store.pipe(select(fromForm.getProfessionalForm));
     this.dictionaries$ = this.store.pipe(
       select(fromDictionaries.getDictionaries)
     );
