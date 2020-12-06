@@ -17,6 +17,11 @@ const routes: Routes = [
         loadChildren: () =>
           import('./pages/shared/shared.module').then((m) => m.SharedModule),
       },
+      {
+        path: 'guards',
+        loadChildren: () =>
+          import('./pages/guards/guards.module').then((m) => m.GuardsModule),
+      },
     ],
   },
 ];
