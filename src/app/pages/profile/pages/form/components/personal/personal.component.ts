@@ -83,7 +83,6 @@ export class PersonalComponent implements OnInit, OnDestroy {
       } else {
         this.changed.emit(this.form.value);
       }
-
       this.stepper[type].next(this.form.valid);
     });
   }

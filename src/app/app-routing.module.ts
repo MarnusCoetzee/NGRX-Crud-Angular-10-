@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-
+import { AuthGuard, RoleGuard, Roles, UnauthGuard } from './guards';
 const routes: Routes = [
   {
     path: '',
@@ -24,6 +24,7 @@ const routes: Routes = [
         path: 'profile',
         loadChildren: () =>
           import('./pages/profile/profile.module').then((m) => m.ProfileModule),
+        canActivate: [AuthGuard],
       },
       {
         path: 'employees',
@@ -31,11 +32,14 @@ const routes: Routes = [
           import('./pages/employees/employees.module').then(
             (m) => m.EmployeesModule
           ),
+        // canLoad: [AuthGuard, RoleGuard],
+        // data: { roles: [Roles.Recruiter] },
       },
       {
         path: 'jobs',
         loadChildren: () =>
           import('./pages/jobs/jobs.module').then((m) => m.JobsModule),
+        canActivate: [AuthGuard],
       },
       {
         path: '',
